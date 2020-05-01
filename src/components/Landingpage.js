@@ -61,9 +61,9 @@ class LandingPage extends Component {
           <h3>Is it time to get new shoes?</h3>
           <p>
             Shugame can consistently track your shoes and remind you of those
-            shoes you ve been meaning to get but couldn't justify to get. As you
-            increase your usage and Shugame can update you on when it's time to
-            get those new shoes.
+            shoes you've been meaning to get but couldn't justify making the
+            purchase. As you increase your usage and Shugame can update you on
+            when it's time to get those new shoes.
           </p>
           <br />
 
