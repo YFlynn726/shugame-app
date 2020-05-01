@@ -1,0 +1,18 @@
+.Landing {
+  margin: 0;
+  padding: 25px;
+}
+
+.signup-form {
+  position: relative;
+  width: 640px;
+  margin: 0 auto;
+  padding: 30px;
+  padding-bottom: 30px;
+  box-sizing: border-box;
+  background: lightpink;
+}
+
+h1 {
+  color: black;
+}
