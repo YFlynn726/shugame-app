@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import ShugameContext from "./ShugameContext";
 
 class AddWish extends Component {
+  static contextType = ShugameContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +34,13 @@ class AddWish extends Component {
   handleSubmit = (event) => {
     const newWish = this.state;
     console.log(newWish);
+    this.addWish(newWish);
     event.preventDefault();
+  };
+
+  addWish = (newWish) => {
+    this.context.addWish(newWish);
+    this.props.history.push("/welcome");
   };
 
   render() {

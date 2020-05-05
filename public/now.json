@@ -1,15 +1,8 @@
 {
   "version": 2,
-  "alias": "my-shugame-app",
   "name": "shugame-app",
   "routes": [
-    {
-      "src": "^/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": ".*",
-      "dest": "/index.html"
-    }
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
   ]
 }

@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import "./Landingpage.css";
-import info from "./dummy-list";
+import ShugameContext from "./ShugameContext";
+//import info from "./dummy-list";
 
-console.log(info);
+//console.log(info);
 
 class LandingPage extends Component {
+  static contextType = ShugameContext;
+
   constructor(props) {
     super(props);
     this.state = {
       first_name: "",
       last_name: "",
-      shoename: "",
+      //shoename: "",
     };
   }
 
@@ -32,14 +35,17 @@ class LandingPage extends Component {
 
   handleSubmit = (event) => {
     const newUser = this.state;
-    newUser.id = info.users.length + 1;
+    //newUser.id = info.users.length + 1;
     console.log(newUser);
     this.addUser(newUser);
     event.preventDefault();
   };
 
   addUser = (newUser) => {
-    info.users.push(newUser);
+    //update context
+    this.context.addUser(newUser);
+
+    //info.users.push(newUser);
     console.log(this.props);
     this.props.history.push("/welcome");
   };
@@ -100,7 +106,7 @@ class LandingPage extends Component {
               />
             </div>
 
-            <div>
+            {/* <div>
               <label>Shoe Name: </label>
 
               <input
@@ -109,7 +115,7 @@ class LandingPage extends Component {
                 value={this.state.shoename}
                 onChange={this.handlesnameChange}
               />
-            </div>
+            </div> */}
             <input type="submit" value="Submit" />
           </form>
           <br></br>

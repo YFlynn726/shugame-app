@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import ShugameContext from "./ShugameContext";
 
 class AddShoe extends Component {
+  static contextType = ShugameContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -37,6 +40,11 @@ class AddShoe extends Component {
     const newShoe = this.state;
     console.log(newShoe);
     event.preventDefault();
+  };
+
+  addShoe = (newShoe) => {
+    this.context.addShoe(newShoe);
+    this.props.history.push("/welcome");
   };
 
   render() {
