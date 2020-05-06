@@ -8,6 +8,7 @@ const ShugameContext = React.createContext({
   deleteShoe: () => {},
   addWish: () => {},
   addShoe: () => {},
+  updateUsage: () => {},
 });
 
 export default ShugameContext;

@@ -13,18 +13,48 @@ import BoundaryError from "./components/BoundaryError";
 
 class App extends Component {
   state = {
-    users: [],
     shoes: [],
+    users: [],
     wishlist: [],
     addUser: this.addUser,
     addShoe: this.addShoe,
     addWish: this.addWish,
     deleteShoe: this.deleteShoe,
+    updateUsage: this.updateUsage,
   };
 
-  deleteNote = (shoeId) => {
+  updateUsage = (usage, shoe) => {
+    console.log(usage);
+    const newUsage = {
+      usage: usage,
+    };
+    console.log(newUsage);
+
+    fetch(`${config.API_ENDPOINT}api/shoes/${shoe.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUsage),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log("Request success: ", data);
+        this.setState({
+          id: Response.id,
+          updateUsage: [...this.state.shoes, data],
+        });
+      })
+      .catch((error) => {
+        console.log("Request failure: ", error);
+      });
+  };
+
+  deleteShoe = (shoeId) => {
     const newShoes = this.state.shoes.filter((shoe) => {
-      return shoe.id.toString() !== shoeId.toString();
+      return shoe.id !== shoeId;
     });
     console.log(newShoes);
     fetch(`${config.API_ENDPOINT}api/shoes/${shoeId}`, {
@@ -46,8 +76,8 @@ class App extends Component {
 
   componentDidMount() {
     Promise.all([
-      fetch(`${config.API_ENDPOINT}api/users`),
       fetch(`${config.API_ENDPOINT}api/shoes`),
+      fetch(`${config.API_ENDPOINT}api/users`),
     ])
       .then(([shoesRes, usersRes]) => {
         if (!shoesRes.ok) return shoesRes.json().then((e) => Promise.reject(e));
@@ -93,19 +123,20 @@ class App extends Component {
         console.log("Request failure: ", error);
       });
 
-    console.log(newUser);
+    // console.log(newUser);
 
-    console.log(this.context);
+    // console.log(this.state.users);
+    // console.log(this.state.shoes);
   };
 
-  addShoe = (shoe, shoe_size, usage, user_id, order_link) => {
+  addShoe = (shoe, shoe_size, usage, order_link, user_id) => {
     console.log(shoe);
     const newShoe = {
       name: shoe,
       shoe_size: shoe_size,
       usage: usage,
-      user_id,
       order_link: order_link,
+      user_id,
     };
     console.log(newShoe);
 
@@ -136,12 +167,13 @@ class App extends Component {
     console.log(this.state.shoes);
   };
 
-  addWish = (wishlist, user_id, order_link) => {
-    console.log(wishlist, order_link);
+  addWish = (shoe_name, shoe_size, order_link, user_id) => {
+    console.log(shoe_name, shoe_size, order_link, user_id);
     const newWishlistItem = {
-      name: wishlist,
-      user_id,
+      name: shoe_name,
+      shoe_size: shoe_size,
       order_link: order_link,
+      user_id,
     };
     console.log(newWishlistItem);
 
@@ -181,6 +213,7 @@ class App extends Component {
       deleteShoe: this.deleteShoe,
       addUser: this.addUser,
       addWish: this.addWish,
+      updateUsage: this.updateUsage,
     };
     return (
       <Router>

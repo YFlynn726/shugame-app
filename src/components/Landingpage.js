@@ -27,23 +27,23 @@ class LandingPage extends Component {
       last_name: event.target.value,
     });
   };
-  handlesnameChange = (event) => {
-    this.setState({
-      shoename: event.target.value,
-    });
-  };
+  // handlesnameChange = (event) => {
+  //   this.setState({
+  //     shoename: event.target.value,
+  //   });
+  // };
 
   handleSubmit = (event) => {
-    const newUser = this.state;
+    //const newUser = this.state;
     //newUser.id = info.users.length + 1;
-    console.log(newUser);
-    this.addUser(newUser);
+    //console.log(newUser);
+    this.addUser();
     event.preventDefault();
   };
 
-  addUser = (newUser) => {
+  addUser = () => {
     //update context
-    this.context.addUser(newUser);
+    this.context.addUser(this.state.first_name, this.state.last_name);
 
     //info.users.push(newUser);
     console.log(this.props);

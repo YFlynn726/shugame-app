@@ -10,7 +10,7 @@ class AddShoe extends Component {
       shoe_name: "",
       shoe_size: "",
       usage: "",
-      Order_link: "",
+      order_link: "",
     };
   }
 
@@ -32,27 +32,51 @@ class AddShoe extends Component {
   };
   handleOrderLinkChange = (event) => {
     this.setState({
-      Order_link: event.target.value,
+      order_link: event.target.value,
     });
   };
 
   handleSubmit = (event) => {
-    const newShoe = this.state;
-    console.log(newShoe);
+    //const newShoe = this.state;
+    //console.log(newShoe);
+    this.addShoe();
     event.preventDefault();
   };
 
-  addShoe = (newShoe) => {
-    this.context.addShoe(newShoe);
+  addShoe = () => {
+    this.context.addShoe(
+      this.state.shoe_name,
+      this.state.shoe_size,
+      this.state.usage,
+      this.state.order_link,
+      this.state.user_id
+    );
     this.props.history.push("/welcome");
   };
 
+  handleUserChange = (event) => {
+    this.setState({ user_id: event.target.value });
+  };
+
   render() {
+    let options = this.context.users.map((user) => {
+      return (
+        <option key={user.id} value={user.id}>
+          {user.first_name} {user.last_name}
+        </option>
+      );
+    });
     return (
       <div className="App">
         <h2>Add a shoe!</h2>
         <form className="addShoeForm" onSubmit={this.handleSubmit}>
           <div>
+            <label>
+              Select user:
+              <select onChange={this.handleUserChange}>{options}</select>
+            </label>
+
+            <br />
             <label>Shoe Name:</label>
             <input
               type="text"
@@ -88,7 +112,7 @@ class AddShoe extends Component {
               type="text"
               id="orderlink"
               name="orderlink"
-              value={this.state.Order_link}
+              value={this.state.order_link}
               onChange={this.handleOrderLinkChange}
             />
           </div>

@@ -9,7 +9,7 @@ class AddWish extends Component {
     this.state = {
       shoe_name: "",
       shoe_size: "",
-      Order_link: "",
+      order_link: "",
     };
   }
 
@@ -27,28 +27,52 @@ class AddWish extends Component {
 
   handleOrderLinkChange = (event) => {
     this.setState({
-      Order_link: event.target.value,
+      order_link: event.target.value,
     });
   };
 
   handleSubmit = (event) => {
-    const newWish = this.state;
-    console.log(newWish);
-    this.addWish(newWish);
+    console.log("i was here");
+    //const newWish = this.state;
+    //console.log(newWish);
+    //console.log(this.state);
+    this.addWish();
     event.preventDefault();
   };
 
-  addWish = (newWish) => {
-    this.context.addWish(newWish);
+  addWish = () => {
+    this.context.addWish(
+      this.state.shoe_name,
+      this.state.shoe_size,
+      this.state.order_link,
+      this.state.user_id
+    );
     this.props.history.push("/welcome");
   };
 
+  handleUserChange = (event) => {
+    console.log(event.target.value);
+    this.setState({ user_id: event.target.value });
+  };
+
   render() {
+    let options = this.context.users.map((user) => {
+      return (
+        <option key={user.id} value={user.id}>
+          {user.first_name} {user.last_name}
+        </option>
+      );
+    });
+
     return (
       <div className="App">
         <h1>Add a Wish!</h1>
         <form className="addShoeForm" onSubmit={this.handleSubmit}>
           <div>
+            <label>
+              Select user:
+              <select onChange={this.handleUserChange}>{options}</select>
+            </label>
             <label>Shoe Name:</label>
             <input
               type="text"
@@ -74,7 +98,7 @@ class AddWish extends Component {
               type="text"
               id="orderlink"
               name="orderlink"
-              value={this.state.Order_link}
+              value={this.state.order_link}
               onChange={this.handleOrderLinkChange}
             />
           </div>

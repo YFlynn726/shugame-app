@@ -11,7 +11,8 @@
 // export default ShoeDetail;
 
 import React, { Component } from "react";
-import INFO from "./dummy-list";
+import ShugameContext from "./ShugameContext";
+//import INFO from "./dummy-list";
 import "./shoedetail.css";
 import { Link } from "react-router-dom";
 //import NotefulContext from "./NotefulContext";
@@ -22,91 +23,129 @@ import { Link } from "react-router-dom";
 // filter through the notes using the folder id
 
 class ShoeDetail extends Component {
+  static contextType = ShugameContext;
+
   constructor(props) {
     super(props);
     this.state = {
-      updateUsage: "",
+      currentShoes: {},
+      usage: "",
+      currentShoe: "",
     };
   }
 
-  handleUpdateUsageChange = (event) => {
+  handleUpdateUsageChange = (event, shoe) => {
+    // console.log(shoe);
+    // console.log(event.target.value);
+    // let currentShoes = this.state.currentShoes;
+    // currentShoes.id = { shoe: shoe, updateUsage: event.target.value };
     this.setState({
-      updateUsage: event.target.value,
+      usage: event.target.value,
+      currentShoe: shoe,
     });
+    //this.setState({ currentShoes: currentShoes });
   };
 
-  handleSumbit = (event) => {
-    const newUsage = this.state;
-    console.log(newUsage);
+  handleSubmit = (event) => {
+    console.log(this.state.currentShoe);
+    console.log(this.state.usage);
+    this.updateUsage();
     event.preventDefault();
   };
 
+  updateUsage = () => {
+    console.log("i was here");
+    this.context.updateUsage(this.state.usage, this.state.currentShoe);
+  };
+
+  deleteShoeRequest = () => {
+    console.log(this.props);
+    console.log(this.context);
+    this.context.deleteShoe(this.props.match.params.shoeId);
+    this.props.history.push("/welcome");
+  };
+
   render() {
-    //console.log(this.context.notes);
-    // console.log("Notes");
     const userId = this.props.match.params.user_id;
-    // loop through notes from store and filter for the notes
-    // that have a folder matching this folder id
-    //const folderId = this.context;
-    // console.log("Folder ID");
-    //console.log(userId);
-    const filteredShoes = INFO.shoes
-      .filter((shoe) => {
-        //console.log(`${typeof folderId} vs ${typeof note.folder_id}`);
-        // console.log(`${folderId} vs ${note.folder_id}`);
-        //console.log(note);
-        // eslint-disable-next-line eqeqeq
-        return shoe.user_Id == userId;
-      })
-      // console.log("Filtered notes");
-      .map((shoe, index) => {
-        return (
-          <div key={index}>
-            <h4>Shoe List</h4>
-            <li className="shoes">{shoe.shoe_name}</li>
-            <div>Shoe size: {shoe.shoe_size}</div>
-            <div>Shoe usage: {shoe.usage} </div>
-            <div>
-              <form onSubmit={this.handleSumbit}>
-                <label>Update Usage</label>
-                <input
-                  type="number"
-                  name="usage"
-                  placeholder="120 miles"
-                  value={this.state.updateUsage}
-                  onChange={this.handleUpdateUsageChange}
-                />
-                <input type="submit"></input>
-              </form>
-            </div>
-            <br />
-            Order link: {shoe.Order_link}
-            <br />
-            <button>Delete</button>
+    console.log(this.props);
+    //console.log(this.context.shoes);
+
+    const filteredShoes = this.context.shoes.filter((shoe) => {
+      //console.log(`${typeof folderId} vs ${typeof note.folder_id}`);
+      // console.log(`${folderId} vs ${note.folder_id}`);
+      //console.log(note);
+      // eslint-disable-next-line eqeqeq
+      return shoe.user_id == userId;
+    });
+    //console.log(filteredShoes);
+    const shoes = filteredShoes.map((shoe, index) => {
+      return (
+        <div key={index}>
+          <h4>Shoe List</h4>
+          <li className="shoes">Shoe Name: {shoe.name}</li>
+          <div>Shoe size: {shoe.shoe_size}</div>
+          <div>Shoe usage: {shoe.usage} </div>
+          <div>Order link: {shoe.order_link}</div>
+          <div>
+            <form onSubmit={this.handleSubmit}>
+              <label>Update Usage</label>
+              <input
+                key={shoe.id}
+                type="text"
+                name="usage"
+                placeholder="120 miles"
+                value={this.state.usage}
+                onChange={(event) => this.handleUpdateUsageChange(event, shoe)}
+                //onChange={this.handleUpdateUsageChange}
+              />
+              <input type="submit"></input>
+            </form>
           </div>
-        );
-      });
+          <br />
+
+          <button className="delete_button" onClick={this.deleteShoeRequest}>
+            Delete
+          </button>
+        </div>
+      );
+    });
+
+    //console.log(this.context.shoes);
+
+    const filteredWish = this.context.wishlist.filter((wishlist) => {
+      //console.log(`${typeof folderId} vs ${typeof note.folder_id}`);
+      // console.log(`${folderId} vs ${note.folder_id}`);
+      //console.log(note);
+      // eslint-disable-next-line eqeqeq
+      return wishlist.user_id == userId;
+    });
+    //console.log(filteredWish);
+    // console.log("Filtered notes");
+    const wishlist = filteredWish.map((wishlist, index) => {
+      return (
+        <div key={index}>
+          <h4>WishList</h4>
+          <li className="wishlists">Shoe Name: {wishlist.shoe_name}</li>
+          <div>Shoe size: {wishlist.shoe_size}</div>
+          <div>Order link: {wishlist.order_link}</div>
+
+          <br />
+
+          <button>Delete</button>
+        </div>
+      );
+    });
     return (
       <div className="content">
-        <ul className="shoes">{filteredShoes}</ul>
-        <Link to={"/"}>
+        <ul className="shoes">{shoes}</ul>
+        <Link to={"/welcome"}>
           <input type="button" value="Go Back" />
         </Link>{" "}
         <Link to={"/AddShoe"}>
           <input type="button" value="Add A Shoe" />
         </Link>{" "}
         <h2>Wish List</h2>
-        <ul>
-          <li className="shoes">
-            Adidas Boost 20 new color <button>Delete</button>
-          </li>
-          <li className="shoes">
-            Nike <button>Delete</button>
-          </li>
-          <li className="shoes">
-            Asics <button>Delete</button>
-          </li>
-        </ul>
+        <ul>{wishlist}</ul>
         <Link to={"/AddWish"}>
           <input type="button" value="Add A Wish" />
         </Link>{" "}
