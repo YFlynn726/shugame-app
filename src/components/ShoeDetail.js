@@ -1,26 +1,8 @@
-// import React from "react";
-
-// function ShoeDetail() {
-//   return (
-//     <div className="App">
-//       <h1>Hello shoe detail!</h1>
-//     </div>
-//   );
-// }
-
-// export default ShoeDetail;
-
 import React, { Component } from "react";
 import ShugameContext from "./ShugameContext";
 //import INFO from "./dummy-list";
 import "./shoedetail.css";
 import { Link } from "react-router-dom";
-//import NotefulContext from "./NotefulContext";
-
-// the id of the folder you're currently viewing
-// can get accessed from the route params
-// this.props.match.params
-// filter through the notes using the folder id
 
 class ShoeDetail extends Component {
   static contextType = ShugameContext;
@@ -35,15 +17,11 @@ class ShoeDetail extends Component {
   }
 
   handleUpdateUsageChange = (event, shoe) => {
-    // console.log(shoe);
-    // console.log(event.target.value);
-    // let currentShoes = this.state.currentShoes;
-    // currentShoes.id = { shoe: shoe, updateUsage: event.target.value };
     this.setState({
       usage: event.target.value,
       currentShoe: shoe,
     });
-    //this.setState({ currentShoes: currentShoes });
+    event.preventDefault();
   };
 
   handleSubmit = (event) => {
@@ -54,20 +32,21 @@ class ShoeDetail extends Component {
   };
 
   updateUsage = () => {
-    console.log("i was here");
+    //console.log("i was here");
     this.context.updateUsage(this.state.usage, this.state.currentShoe);
   };
 
   deleteShoeRequest = () => {
     console.log(this.props);
     console.log(this.context);
-    this.context.deleteShoe(this.props.match.params.shoeId);
+    this.context.deleteShoe(this.props.match.params.shoe.id);
     this.props.history.push("/welcome");
   };
 
   render() {
     const userId = this.props.match.params.user_id;
-    console.log(this.props);
+
+    //console.log(this.props);
     //console.log(this.context.shoes);
 
     const filteredShoes = this.context.shoes.filter((shoe) => {
@@ -91,7 +70,7 @@ class ShoeDetail extends Component {
               <label>Update Usage</label>
               <input
                 key={shoe.id}
-                type="text"
+                type="number"
                 name="usage"
                 placeholder="120 miles"
                 value={this.state.usage}

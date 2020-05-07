@@ -38,14 +38,18 @@ class App extends Component {
       body: JSON.stringify(newUsage),
     })
       .then((res) => {
+        console.log(res);
+
         return res.json();
       })
       .then((data) => {
         console.log("Request success: ", data);
+        console.log(Response.id);
         this.setState({
-          id: Response.id,
-          updateUsage: [...this.state.shoes, data],
+          //id: Response.id,
+          updateUsage: [...this.state.updateUsage, data],
         });
+        console.log(Response.id);
       })
       .catch((error) => {
         console.log("Request failure: ", error);
