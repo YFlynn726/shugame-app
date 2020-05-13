@@ -4,12 +4,14 @@ import AddShoe from "./components/AddShoe";
 import LandingPage from "./components/Landingpage";
 import Mainpage from "./components/Mainpage";
 import ShoeDetail from "./components/ShoeDetail";
+import Userpage from "./components/UserPage";
 import "./App.css";
 import config from "./config";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AddWish from "./components/AddWish";
 import ShugameContext from "./components/ShugameContext";
 import BoundaryError from "./components/BoundaryError";
+import Wishlist from "./components/Wishlist";
 
 class App extends Component {
   state = {
@@ -20,13 +22,16 @@ class App extends Component {
     addShoe: this.addShoe,
     addWish: this.addWish,
     deleteShoe: this.deleteShoe,
+    deleteWish: this.deleteWish,
+
     updateUsage: this.updateUsage,
   };
 
   updateUsage = (usage, shoe) => {
-    console.log(usage);
+    //console.log(usage);
+    console.log(shoe);
     const newUsage = {
-      usage: usage,
+      usage: parseInt(usage) + parseInt(shoe.usage),
     };
     console.log(newUsage);
 
@@ -43,13 +48,19 @@ class App extends Component {
         return res.json();
       })
       .then((data) => {
-        console.log("Request success: ", data);
-        console.log(Response.id);
-        this.setState({
-          //id: Response.id,
-          updateUsage: [...this.state.updateUsage, data],
+        const shoes = this.state.shoes.map((item) => {
+          if (item.id === shoe.id) {
+            return {
+              ...item,
+              usage: newUsage.usage,
+            };
+          } else {
+            return item;
+          }
         });
-        console.log(Response.id);
+        this.setState({
+          shoes,
+        });
       })
       .catch((error) => {
         console.log("Request failure: ", error);
@@ -78,20 +89,51 @@ class App extends Component {
     });
   };
 
+  deleteWish = (wishlistId) => {
+    const newWishlist = this.state.wishlist.filter((wishlist) => {
+      return wishlist.id !== wishlistId;
+    });
+    console.log(newWishlist);
+    fetch(`${config.API_ENDPOINT}api/wishlist/${wishlistId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log(this.state);
+      })
+      .catch((error) => {
+        console.log("Request failure: ", error);
+      });
+    this.setState({
+      wishlist: this.state.wishlist.filter(
+        (wishlist) => +wishlist.id !== +wishlistId
+      ),
+    });
+  };
+
   componentDidMount() {
     Promise.all([
       fetch(`${config.API_ENDPOINT}api/shoes`),
       fetch(`${config.API_ENDPOINT}api/users`),
+      fetch(`${config.API_ENDPOINT}api/wishlist`),
     ])
-      .then(([shoesRes, usersRes]) => {
+      .then(([shoesRes, usersRes, wishlistRes]) => {
         if (!shoesRes.ok) return shoesRes.json().then((e) => Promise.reject(e));
         if (!usersRes.ok) return usersRes.json().then((e) => Promise.reject(e));
+        if (!wishlistRes.ok)
+          return wishlistRes.json().then((e) => Promise.reject(e));
 
-        return Promise.all([shoesRes.json(), usersRes.json()]);
+        return Promise.all([
+          shoesRes.json(),
+          usersRes.json(),
+          wishlistRes.json(),
+        ]);
       })
-      .then(([shoes, users]) => {
+      .then(([shoes, users, wishlist]) => {
         //console.log(notes);
-        this.setState({ shoes, users });
+        this.setState({ shoes, users, wishlist });
       })
       .catch((error) => {
         console.error({ error });
@@ -134,7 +176,7 @@ class App extends Component {
   };
 
   addShoe = (shoe, shoe_size, usage, order_link, user_id) => {
-    console.log(shoe);
+    //console.log(shoe);
     const newShoe = {
       name: shoe,
       shoe_size: shoe_size,
@@ -171,11 +213,11 @@ class App extends Component {
     console.log(this.state.shoes);
   };
 
-  addWish = (shoe_name, shoe_size, order_link, user_id) => {
-    console.log(shoe_name, shoe_size, order_link, user_id);
+  addWish = (shoe_name, order_link, user_id) => {
+    console.log(shoe_name, order_link, user_id);
     const newWishlistItem = {
       name: shoe_name,
-      shoe_size: shoe_size,
+      //shoe_size: shoe_size,
       order_link: order_link,
       user_id,
     };
@@ -215,6 +257,7 @@ class App extends Component {
       wishlist: this.state.wishlist,
       addShoe: this.addShoe,
       deleteShoe: this.deleteShoe,
+      deleteWish: this.deleteWish,
       addUser: this.addUser,
       addWish: this.addWish,
       updateUsage: this.updateUsage,
@@ -225,11 +268,15 @@ class App extends Component {
           <BoundaryError>
             <ShugameContext.Provider value={contextValue}>
               <Nav />
+
               <Switch>
                 <Route path="/" exact component={LandingPage} />
                 <Route path="/welcome" component={Mainpage} />
-                <Route path="/users/:user_id" component={ShoeDetail} />
-                <Route path="/addshoe" component={AddShoe} />
+                <Route path="/users/:user_id" component={Userpage} />
+                <Route path="/wishlist/:wishlist_id" component={Wishlist} />
+
+                <Route path="/shoes/:shoe_id" component={ShoeDetail} />
+                <Route path="/AddShoe" component={AddShoe} />
                 <Route path="/AddWish" exact component={AddWish} />
               </Switch>
             </ShugameContext.Provider>

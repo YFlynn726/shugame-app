@@ -6,6 +6,7 @@ const ShugameContext = React.createContext({
   wishlist: [],
   addUser: () => {},
   deleteShoe: () => {},
+  deleteWish: () => {},
   addWish: () => {},
   addShoe: () => {},
   updateUsage: () => {},

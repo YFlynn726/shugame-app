@@ -11,6 +11,7 @@ class AddShoe extends Component {
       shoe_size: "",
       usage: "",
       order_link: "",
+      user_id: "",
     };
   }
 
@@ -39,8 +40,9 @@ class AddShoe extends Component {
   handleSubmit = (event) => {
     //const newShoe = this.state;
     //console.log(newShoe);
-    this.addShoe();
     event.preventDefault();
+
+    this.addShoe();
   };
 
   addShoe = () => {
@@ -56,6 +58,8 @@ class AddShoe extends Component {
 
   handleUserChange = (event) => {
     this.setState({ user_id: event.target.value });
+    //console.log(this.state.user_id);
+    //console.log(this.context.users);
   };
 
   render() {
@@ -66,59 +70,57 @@ class AddShoe extends Component {
         </option>
       );
     });
-    return (
-      <div className="App">
-        <h2>Add a shoe!</h2>
-        <form className="addShoeForm" onSubmit={this.handleSubmit}>
-          <div>
-            <label>
-              Select user:
-              <select onChange={this.handleUserChange}>{options}</select>
-            </label>
 
-            <br />
-            <label>Shoe Name:</label>
-            <input
-              type="text"
-              id="shoename"
-              name="shoename"
-              value={this.state.shoe_name}
-              onChange={this.handlesnameChange}
-            />
-          </div>
-          <div>
-            <label>Shoe Size:</label>
-            <input
-              type="text"
-              id="shoesize"
-              name="shoesize"
-              value={this.state.shoe_size}
-              onChange={this.handlesSizeChange}
-            />
-          </div>
-          <div>
-            <label>Shoe Miles:</label>
-            <input
-              type="text"
-              id="shoemiles"
-              name="shoemiles"
-              value={this.state.usage}
-              onChange={this.handleUsageChange}
-            />
-          </div>
-          <div>
-            <label>Order Link:</label>
-            <input
-              type="text"
-              id="orderlink"
-              name="orderlink"
-              value={this.state.order_link}
-              onChange={this.handleOrderLinkChange}
-            />
-          </div>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
+    return (
+      <form className="addShoeForm" onSubmit={this.handleSubmit}>
+        <label>
+          Select user:
+          <select onChange={this.handleUserChange}>{options}</select>
+        </label>
+
+        <br />
+        <div>
+          <label>Shoe Name:</label>
+          <input
+            type="text"
+            id="shoename"
+            name="shoename"
+            value={this.state.shoe_name}
+            onChange={this.handlesnameChange}
+          />
+        </div>
+        <div>
+          <label>Shoe Size:</label>
+          <input
+            type="text"
+            id="shoesize"
+            name="shoesize"
+            value={this.state.shoe_size}
+            onChange={this.handlesSizeChange}
+          />
+        </div>
+        <div>
+          <label>Shoe Miles:</label>
+          <input
+            type="text"
+            id="shoemiles"
+            name="shoemiles"
+            value={this.state.usage}
+            onChange={this.handleUsageChange}
+          />
+        </div>
+        <div>
+          <label>Order Link:</label>
+          <input
+            type="text"
+            id="orderlink"
+            name="orderlink"
+            value={this.state.order_link}
+            onChange={this.handleOrderLinkChange}
+          />
+        </div>
+        <input type="submit" value="Submit" />
+      </form>
     );
   }
 }

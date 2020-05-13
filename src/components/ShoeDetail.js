@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ShugameContext from "./ShugameContext";
 //import INFO from "./dummy-list";
 import "./shoedetail.css";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 class ShoeDetail extends Component {
   static contextType = ShugameContext;
@@ -36,98 +36,69 @@ class ShoeDetail extends Component {
     this.context.updateUsage(this.state.usage, this.state.currentShoe);
   };
 
-  deleteShoeRequest = () => {
+  deleteShoeRequest = (shoe) => {
     console.log(this.props);
     console.log(this.context);
-    this.context.deleteShoe(this.props.match.params.shoe.id);
+    this.context.deleteShoe(this.props.match.params.shoe_id);
     this.props.history.push("/welcome");
   };
 
   render() {
-    const userId = this.props.match.params.user_id;
+    //console.log("i got here 1");
+    const shoeId = this.props.match.params.shoe_id;
+    //console.log("i got here 2");
 
     //console.log(this.props);
     //console.log(this.context.shoes);
 
-    const filteredShoes = this.context.shoes.filter((shoe) => {
-      //console.log(`${typeof folderId} vs ${typeof note.folder_id}`);
-      // console.log(`${folderId} vs ${note.folder_id}`);
-      //console.log(note);
-      // eslint-disable-next-line eqeqeq
-      return shoe.user_id == userId;
-    });
-    //console.log(filteredShoes);
-    const shoes = filteredShoes.map((shoe, index) => {
-      return (
-        <div key={index}>
-          <h4>Shoe List</h4>
-          <li className="shoes">Shoe Name: {shoe.name}</li>
-          <div>Shoe size: {shoe.shoe_size}</div>
-          <div>Shoe usage: {shoe.usage} </div>
-          <div>Order link: {shoe.order_link}</div>
-          <div>
-            <form onSubmit={this.handleSubmit}>
-              <label>Update Usage</label>
-              <input
-                key={shoe.id}
-                type="number"
-                name="usage"
-                placeholder="120 miles"
-                value={this.state.usage}
-                onChange={(event) => this.handleUpdateUsageChange(event, shoe)}
-                //onChange={this.handleUpdateUsageChange}
-              />
-              <input type="submit"></input>
-            </form>
+    const shoedetails = this.context.shoes
+      .filter((shoe) => {
+        // eslint-disable-next-line eqeqeq
+        return shoe.id == shoeId;
+      })
+      .map((shoe) => {
+        return (
+          <div key={shoe.id}>
+            <li className="shoes">Shoe Name: {shoe.name}</li>
+            <div>Shoe size: {shoe.shoe_size}</div>
+            <div>Shoe usage: {shoe.usage} </div>
+            <div>Order link: {shoe.order_link}</div>
+            <br />
+            <div>
+              <form onSubmit={this.handleSubmit}>
+                <label>Update Usage</label>
+                <input
+                  key={shoe.id}
+                  type="number"
+                  name="usage"
+                  placeholder="120 miles"
+                  value={this.state.usage}
+                  onChange={(event) =>
+                    this.handleUpdateUsageChange(event, shoe)
+                  }
+                  //onChange={this.handleUpdateUsageChange}
+                />
+                <input type="submit"></input>
+              </form>
+            </div>
+
+            <button className="delete_button" onClick={this.deleteShoeRequest}>
+              Delete
+            </button>
           </div>
-          <br />
+        );
+      });
 
-          <button className="delete_button" onClick={this.deleteShoeRequest}>
-            Delete
-          </button>
-        </div>
-      );
-    });
-
-    //console.log(this.context.shoes);
-
-    const filteredWish = this.context.wishlist.filter((wishlist) => {
-      //console.log(`${typeof folderId} vs ${typeof note.folder_id}`);
-      // console.log(`${folderId} vs ${note.folder_id}`);
-      //console.log(note);
-      // eslint-disable-next-line eqeqeq
-      return wishlist.user_id == userId;
-    });
-    //console.log(filteredWish);
-    // console.log("Filtered notes");
-    const wishlist = filteredWish.map((wishlist, index) => {
-      return (
-        <div key={index}>
-          <h4>WishList</h4>
-          <li className="wishlists">Shoe Name: {wishlist.shoe_name}</li>
-          <div>Shoe size: {wishlist.shoe_size}</div>
-          <div>Order link: {wishlist.order_link}</div>
-
-          <br />
-
-          <button>Delete</button>
-        </div>
-      );
-    });
+    console.log(this.context.shoes);
     return (
       <div className="content">
-        <ul className="shoes">{shoes}</ul>
-        <Link to={"/welcome"}>
+        <ul className="shoes">{shoedetails}</ul>
+        {/* <Link to={"/welcome"}>
           <input type="button" value="Go Back" />
         </Link>{" "}
         <Link to={"/AddShoe"}>
           <input type="button" value="Add A Shoe" />
-        </Link>{" "}
-        <h2>Wish List</h2>
-        <ul>{wishlist}</ul>
-        <Link to={"/AddWish"}>
-          <input type="button" value="Add A Wish" />
-        </Link>{" "}
+        </Link>{" "} */}
       </div>
     );
   }

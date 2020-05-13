@@ -8,7 +8,7 @@ class AddWish extends Component {
     super(props);
     this.state = {
       shoe_name: "",
-      shoe_size: "",
+      //shoe_size: "",
       order_link: "",
     };
   }
@@ -19,11 +19,11 @@ class AddWish extends Component {
     });
   };
 
-  handlesSizeChange = (event) => {
-    this.setState({
-      shoe_size: event.target.value,
-    });
-  };
+  // handlesSizeChange = (event) => {
+  //   this.setState({
+  //     shoe_size: event.target.value,
+  //   });
+  // };
 
   handleOrderLinkChange = (event) => {
     this.setState({
@@ -43,7 +43,7 @@ class AddWish extends Component {
   addWish = () => {
     this.context.addWish(
       this.state.shoe_name,
-      this.state.shoe_size,
+      //this.state.shoe_size,
       this.state.order_link,
       this.state.user_id
     );
@@ -82,7 +82,7 @@ class AddWish extends Component {
               onChange={this.handlesnameChange}
             />
           </div>
-          <div>
+          {/* <div>
             <label>Shoe Size:</label>
             <input
               type="text"
@@ -91,7 +91,7 @@ class AddWish extends Component {
               value={this.state.shoe_size}
               onChange={this.handlesSizeChange}
             />
-          </div>
+          </div> */}
           <div>
             <label>Order Link:</label>
             <input
