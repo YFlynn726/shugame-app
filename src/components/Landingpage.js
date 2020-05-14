@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import "./Landingpage.css";
 import ShugameContext from "./ShugameContext";
-//import info from "./dummy-list";
-
-//console.log(info);
+import ValidationError from "./ValidateError";
 
 class LandingPage extends Component {
   static contextType = ShugameContext;
@@ -13,7 +11,7 @@ class LandingPage extends Component {
     this.state = {
       first_name: "",
       last_name: "",
-      //shoename: "",
+      error: false,
     };
   }
 
@@ -27,30 +25,44 @@ class LandingPage extends Component {
       last_name: event.target.value,
     });
   };
-  // handlesnameChange = (event) => {
-  //   this.setState({
-  //     shoename: event.target.value,
-  //   });
-  // };
 
   handleSubmit = (event) => {
-    //const newUser = this.state;
-    //newUser.id = info.users.length + 1;
-    //console.log(newUser);
-    this.addUser();
     event.preventDefault();
+    const isValid = this.validateName();
+    if (!isValid.error) {
+      this.addUser();
+    } else {
+      this.updateError(isValid.value);
+    }
   };
 
   addUser = () => {
     //update context
     this.context.addUser(this.state.first_name, this.state.last_name);
-
-    //info.users.push(newUser);
-    console.log(this.props);
     this.props.history.push("/welcome");
   };
 
+  updateError = (err) => {
+    this.setState({
+      error: err,
+    });
+  };
+
+  validateName = () => {
+    const firstName = this.state.first_name.trim();
+    const lastName = this.state.last_name.trim();
+    const result = { error: false, value: firstName, lastName };
+    if (firstName.length <= 2 || lastName.length <= 2) {
+      result.error = true;
+      result.value =
+        "First Name and Last Name must be at least 3 characters long";
+    }
+    return result;
+  };
+
   render() {
+    const { error } = this.state;
+    const validationError = error ? <ValidationError message={error} /> : "";
     return (
       <div>
         <div className="Landing">
@@ -92,7 +104,9 @@ class LandingPage extends Component {
                 type="text"
                 value={this.state.first_name}
                 onChange={this.handlefnameChange}
+                required
               />
+              {validationError}
             </div>
 
             <div>
@@ -103,19 +117,11 @@ class LandingPage extends Component {
                 placeholder="Doe"
                 value={this.state.last_name}
                 onChange={this.handlelnameChange}
+                required
               />
+              {validationError}
             </div>
 
-            {/* <div>
-              <label>Shoe Name: </label>
-
-              <input
-                type="text"
-                placeholder="Adidas Boost"
-                value={this.state.shoename}
-                onChange={this.handlesnameChange}
-              />
-            </div> */}
             <input type="submit" value="Submit" />
           </form>
           <br></br>

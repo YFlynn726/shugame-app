@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ShugameContext from "./ShugameContext";
+import ValidationError from "./ValidateError";
 
 class AddWish extends Component {
   static contextType = ShugameContext;
@@ -8,8 +9,8 @@ class AddWish extends Component {
     super(props);
     this.state = {
       shoe_name: "",
-      //shoe_size: "",
       order_link: "",
+      error: false,
     };
   }
 
@@ -19,12 +20,6 @@ class AddWish extends Component {
     });
   };
 
-  // handlesSizeChange = (event) => {
-  //   this.setState({
-  //     shoe_size: event.target.value,
-  //   });
-  // };
-
   handleOrderLinkChange = (event) => {
     this.setState({
       order_link: event.target.value,
@@ -32,18 +27,18 @@ class AddWish extends Component {
   };
 
   handleSubmit = (event) => {
-    console.log("i was here");
-    //const newWish = this.state;
-    //console.log(newWish);
-    //console.log(this.state);
-    this.addWish();
     event.preventDefault();
+    const isValid = this.validateName();
+    if (!isValid.error) {
+      this.addWish();
+    } else {
+      this.updateError(isValid.value);
+    }
   };
 
   addWish = () => {
     this.context.addWish(
       this.state.shoe_name,
-      //this.state.shoe_size,
       this.state.order_link,
       this.state.user_id
     );
@@ -51,11 +46,28 @@ class AddWish extends Component {
   };
 
   handleUserChange = (event) => {
-    console.log(event.target.value);
     this.setState({ user_id: event.target.value });
   };
 
+  updateError = (err) => {
+    this.setState({
+      error: err,
+    });
+  };
+
+  validateName = () => {
+    const name = this.state.shoe_name.trim();
+    const result = { error: false, value: name };
+    if (name.length <= 2) {
+      result.error = true;
+      result.value = " Name must be at least 3 characters long";
+    }
+    return result;
+  };
+
   render() {
+    const { error } = this.state;
+    const validationError = error ? <ValidationError message={error} /> : "";
     let options = this.context.users.map((user) => {
       return (
         <option key={user.id} value={user.id}>
@@ -80,18 +92,11 @@ class AddWish extends Component {
               name="shoename"
               value={this.state.shoe_name}
               onChange={this.handlesnameChange}
+              required
             />
+            {validationError}
           </div>
-          {/* <div>
-            <label>Shoe Size:</label>
-            <input
-              type="text"
-              id="shoesize"
-              name="shoesize"
-              value={this.state.shoe_size}
-              onChange={this.handlesSizeChange}
-            />
-          </div> */}
+
           <div>
             <label>Order Link:</label>
             <input
@@ -100,6 +105,7 @@ class AddWish extends Component {
               name="orderlink"
               value={this.state.order_link}
               onChange={this.handleOrderLinkChange}
+              required
             />
           </div>
           <input type="submit" value="Submit" />

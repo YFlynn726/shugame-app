@@ -1,21 +1,12 @@
 import React, { Component } from "react";
-//import STORE from "./dummy-store.js";
 import { Link } from "react-router-dom";
 import ShugameContext from "./ShugameContext";
 import "./userpage.css";
-
-// the id of the folder you're currently viewing
-// can get accessed from the route params
-// this.props.match.params
-// filter through the notes using the folder id
 
 class Userpage extends Component {
   static contextType = ShugameContext;
 
   deleteWishRequest = (wishlistId) => {
-    console.log(this.props);
-    console.log(this.context);
-    console.log(this.props.match.params);
     this.context.deleteWish(this.props.match.params.wishlist_id);
     this.props.history.push("/welcome");
   };
@@ -24,9 +15,7 @@ class Userpage extends Component {
     const userId = this.props.match.params.user_id;
     const wishlistId = this.props.match.params.wishlist_id;
     console.log(wishlistId);
-    console.log(userId);
 
-    //console.log(userId);
     const filteredShoes = this.context.shoes.filter((shoe) => {
       // eslint-disable-next-line eqeqeq
       return shoe.user_id == userId;
@@ -39,7 +28,6 @@ class Userpage extends Component {
         </Link>
       );
     });
-    //console.log(shoes);
 
     const filteredWish = this.context.wishlist.filter((wishlist) => {
       console.log(this.context.wishlist);

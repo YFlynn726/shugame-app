@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ShugameContext from "./ShugameContext";
+import ValidateError from "./ValidateError";
 
 class AddShoe extends Component {
   static contextType = ShugameContext;
@@ -12,6 +13,7 @@ class AddShoe extends Component {
       usage: "",
       order_link: "",
       user_id: "",
+      error: false,
     };
   }
 
@@ -37,12 +39,23 @@ class AddShoe extends Component {
     });
   };
 
+  handleUserChange = (event) => {
+    this.setState({ user_id: event.target.value });
+    console.log(this.state.user_id);
+    console.log(this.context.users);
+    console.log(event.target.value);
+  };
+
   handleSubmit = (event) => {
     //const newShoe = this.state;
     //console.log(newShoe);
     event.preventDefault();
-
-    this.addShoe();
+    const isValid = this.validateName();
+    if (!isValid.error) {
+      this.addShoe();
+    } else {
+      this.updateError(isValid.value);
+    }
   };
 
   addShoe = () => {
@@ -56,13 +69,25 @@ class AddShoe extends Component {
     this.props.history.push("/welcome");
   };
 
-  handleUserChange = (event) => {
-    this.setState({ user_id: event.target.value });
-    //console.log(this.state.user_id);
-    //console.log(this.context.users);
+  updateError = (err) => {
+    this.setState({
+      error: err,
+    });
+  };
+
+  validateName = () => {
+    const name = this.state.shoe_name.trim();
+    const result = { error: false, value: name };
+    if (name.length <= 2) {
+      result.error = true;
+      result.value = "Name must be at least 3 characters long";
+    }
+    return result;
   };
 
   render() {
+    const { error } = this.state;
+    const validationError = error ? <ValidateError message={error} /> : "";
     let options = this.context.users.map((user) => {
       return (
         <option key={user.id} value={user.id}>
@@ -88,6 +113,7 @@ class AddShoe extends Component {
             value={this.state.shoe_name}
             onChange={this.handlesnameChange}
           />
+          {validationError}
         </div>
         <div>
           <label>Shoe Size:</label>
@@ -97,16 +123,18 @@ class AddShoe extends Component {
             name="shoesize"
             value={this.state.shoe_size}
             onChange={this.handlesSizeChange}
+            required
           />
         </div>
         <div>
           <label>Shoe Miles:</label>
           <input
-            type="text"
+            type="number"
             id="shoemiles"
             name="shoemiles"
             value={this.state.usage}
             onChange={this.handleUsageChange}
+            required
           />
         </div>
         <div>
@@ -117,6 +145,7 @@ class AddShoe extends Component {
             name="orderlink"
             value={this.state.order_link}
             onChange={this.handleOrderLinkChange}
+            required
           />
         </div>
         <input type="submit" value="Submit" />

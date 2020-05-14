@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import ShugameContext from "./ShugameContext";
-//import INFO from "./dummy-list";
 import "./shoedetail.css";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class ShoeDetail extends Component {
   static contextType = ShugameContext;
@@ -25,31 +24,21 @@ class ShoeDetail extends Component {
   };
 
   handleSubmit = (event) => {
-    console.log(this.state.currentShoe);
-    console.log(this.state.usage);
     this.updateUsage();
     event.preventDefault();
   };
 
   updateUsage = () => {
-    //console.log("i was here");
     this.context.updateUsage(this.state.usage, this.state.currentShoe);
   };
 
   deleteShoeRequest = (shoe) => {
-    console.log(this.props);
-    console.log(this.context);
     this.context.deleteShoe(this.props.match.params.shoe_id);
     this.props.history.push("/welcome");
   };
 
   render() {
-    //console.log("i got here 1");
     const shoeId = this.props.match.params.shoe_id;
-    //console.log("i got here 2");
-
-    //console.log(this.props);
-    //console.log(this.context.shoes);
 
     const shoedetails = this.context.shoes
       .filter((shoe) => {
@@ -76,7 +65,6 @@ class ShoeDetail extends Component {
                   onChange={(event) =>
                     this.handleUpdateUsageChange(event, shoe)
                   }
-                  //onChange={this.handleUpdateUsageChange}
                 />
                 <input type="submit"></input>
               </form>
@@ -89,16 +77,15 @@ class ShoeDetail extends Component {
         );
       });
 
-    console.log(this.context.shoes);
     return (
       <div className="content">
         <ul className="shoes">{shoedetails}</ul>
-        {/* <Link to={"/welcome"}>
+        <Link to={"/welcome"}>
           <input type="button" value="Go Back" />
         </Link>{" "}
         <Link to={"/AddShoe"}>
           <input type="button" value="Add A Shoe" />
-        </Link>{" "} */}
+        </Link>{" "}
       </div>
     );
   }
