@@ -66,30 +66,30 @@ class LandingPage extends Component {
     return (
       <div>
         <div className="Landing">
-          <h1>Welcome to the Shugame</h1>
-          <h3>Improve Performance</h3>
+          <h2>Welcome to the Shu-Game</h2>
+          <h3>Improve Your Performance</h3>
           <br />
           <h3>Want to track your shoe usage?</h3>
           <p>
-            Shugame will help track your shoe usage. Take control of your
-            perfomance and track the mileage you put on your shoes. Is it time
-            to get new shoes? Let us help you help your feet.{" "}
+            Shu-game will help track your shoe usage. Take control of your
+            perfomance and track the mileage you put on your shoes. Let us help
+            you help your feet.{" "}
           </p>
           <br />
           <h3>Is it time to get new shoes?</h3>
           <p>
-            Shugame can consistently track your shoes and remind you of those
+            Shu-game can consistently track your shoes and remind you of those
             shoes you've been meaning to get but couldn't justify making the
-            purchase. As you increase your usage and Shugame can update you on
+            purchase. As you increase your usage and Shu-game can update you on
             when it's time to get those new shoes.
           </p>
           <br />
 
           <h3>Can't remember those shoes you really liked?</h3>
           <p>
-            Shugame game can store those wish shoes for you so you don't have to
-            research all over again. As you progress through your running
-            journey, Shugame will be here for you for when you are ready to
+            Shu-game game can store those wish shoes for you so you don't have
+            to research all over again. As you progress through your running
+            journey, Shu-game will be here for you for when you are ready to
             purchase your new kicks.{" "}
           </p>
           <br />

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ShugameContext from "./ShugameContext";
 import ValidateError from "./ValidateError";
+import "./addshoe.css";
 
 class AddShoe extends Component {
   static contextType = ShugameContext;
@@ -97,59 +98,73 @@ class AddShoe extends Component {
     });
 
     return (
-      <form className="addShoeForm" onSubmit={this.handleSubmit}>
-        <label>
-          Select user:
-          <select onChange={this.handleUserChange}>{options}</select>
-        </label>
+      <div className="addshoeform">
+        <h2>Add your shoe</h2>
+        <p>Please select your name to add shoe to your list</p>
+        <form className="addShoeForm" onSubmit={this.handleSubmit}>
+          <label>
+            Select Your Name:
+            <select onChange={this.handleUserChange}>{options}</select>
+          </label>
 
-        <br />
-        <div>
-          <label>Shoe Name:</label>
-          <input
-            type="text"
-            id="shoename"
-            name="shoename"
-            value={this.state.shoe_name}
-            onChange={this.handlesnameChange}
-          />
-          {validationError}
-        </div>
-        <div>
-          <label>Shoe Size:</label>
-          <input
-            type="text"
-            id="shoesize"
-            name="shoesize"
-            value={this.state.shoe_size}
-            onChange={this.handlesSizeChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Shoe Miles:</label>
-          <input
-            type="number"
-            id="shoemiles"
-            name="shoemiles"
-            value={this.state.usage}
-            onChange={this.handleUsageChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Order Link:</label>
-          <input
-            type="text"
-            id="orderlink"
-            name="orderlink"
-            value={this.state.order_link}
-            onChange={this.handleOrderLinkChange}
-            required
-          />
-        </div>
-        <input type="submit" value="Submit" />
-      </form>
+          <br />
+          <div>
+            <label>Shoe Name:</label>
+            <input
+              type="text"
+              id="shoename"
+              name="shoename"
+              value={this.state.shoe_name}
+              onChange={this.handlesnameChange}
+              placeholder="adidas Ultraboost"
+              required
+            />
+            {validationError}
+          </div>
+          <div>
+            <label>Shoe Size:</label>
+            <input
+              type="text"
+              id="shoesize"
+              name="shoesize"
+              value={this.state.shoe_size}
+              onChange={this.handlesSizeChange}
+              placeholder="7"
+              required
+            />
+          </div>
+          <div>
+            <label>Shoe Miles:</label>
+            <input
+              type="number"
+              id="shoemiles"
+              name="shoemiles"
+              value={this.state.usage}
+              onChange={this.handleUsageChange}
+              placeholder="45"
+              required
+            />
+          </div>
+          <div>
+            <label>Order Link:</label>
+            <input
+              type="url"
+              pattern="https://.*"
+              id="orderlink"
+              name="orderlink"
+              value={this.state.order_link}
+              onChange={this.handleOrderLinkChange}
+              placeholder="https://www.adidas.com"
+              required
+            />
+          </div>
+          <input type="submit" value="Submit" />
+        </form>
+        <p>
+          *A good rule of thumb is to replace your running shoes every 300–400
+          miles.
+        </p>
+      </div>
     );
   }
 }

@@ -1,5 +1,27 @@
-.shoes {
+.shoeinfo {
   color: black;
   list-style: none;
-  font-size: 35px;
+  font-size: 20px;
+  padding: 0px;
+}
+
+.ant-progress-circle-wrap,
+.ant-progress-line-wrap {
+  margin-right: 8px;
+  margin-bottom: 5px;
+}
+
+.shoedeets {
+  margin: 0;
+  padding: 25px;
+}
+
+.shoespecs {
+  padding-left: 0px;
+}
+
+a:link {
+  text-decoration: none;
+  text-align: center;
+  color: black;
 }

@@ -6,15 +6,15 @@ function Nav() {
   return (
     <nav>
       <Link to="/">
-        <h1 className="logo">Shugame</h1>
+        <h1 className="logo">Shu-game</h1>
       </Link>
       <ul className="nav-links">
         <Link to="/welcome">
-          <li>Dashboard</li>
+          <li>Community Dashboard</li>
         </Link>
-        <Link to="/AddShoe">
+        {/* <Link to="/AddShoe">
           <li>Add a Shoe</li>
-        </Link>
+        </Link> */}
       </ul>
     </nav>
   );

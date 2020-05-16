@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ShugameContext from "./ShugameContext";
 import ValidationError from "./ValidateError";
+import "./addwish.css";
 
 class AddWish extends Component {
   static contextType = ShugameContext;
@@ -77,14 +78,18 @@ class AddWish extends Component {
     });
 
     return (
-      <div className="App">
-        <h1>Add a Wish!</h1>
-        <form className="addShoeForm" onSubmit={this.handleSubmit}>
+      <div className="wishinfo">
+        <h2>Add a Wish!</h2>
+        <p>Please select your name to add wish to your list</p>
+
+        <form className="addWishForm" onSubmit={this.handleSubmit}>
           <div>
             <label>
-              Select user:
+              Select Your Name:
               <select onChange={this.handleUserChange}>{options}</select>
             </label>
+          </div>
+          <div>
             <label>Shoe Name:</label>
             <input
               type="text"
@@ -92,6 +97,7 @@ class AddWish extends Component {
               name="shoename"
               value={this.state.shoe_name}
               onChange={this.handlesnameChange}
+              placeholder="adidas Ultraboost"
               required
             />
             {validationError}
@@ -105,6 +111,7 @@ class AddWish extends Component {
               name="orderlink"
               value={this.state.order_link}
               onChange={this.handleOrderLinkChange}
+              placeholder="https://www.adidas.com"
               required
             />
           </div>

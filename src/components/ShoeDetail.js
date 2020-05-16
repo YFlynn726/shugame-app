@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ShugameContext from "./ShugameContext";
 import "./shoedetail.css";
 import { Link } from "react-router-dom";
+import { Progress } from "antd";
+//import "./App.css";
 
 class ShoeDetail extends Component {
   static contextType = ShugameContext;
@@ -30,6 +32,9 @@ class ShoeDetail extends Component {
 
   updateUsage = () => {
     this.context.updateUsage(this.state.usage, this.state.currentShoe);
+    this.setState({
+      usage: "",
+    });
   };
 
   deleteShoeRequest = (shoe) => {
@@ -47,14 +52,27 @@ class ShoeDetail extends Component {
       })
       .map((shoe) => {
         return (
-          <div key={shoe.id}>
-            <li className="shoes">Shoe Name: {shoe.name}</li>
-            <div>Shoe size: {shoe.shoe_size}</div>
-            <div>Shoe usage: {shoe.usage} </div>
-            <div>Order link: {shoe.order_link}</div>
+          <div className="shoeinfo" key={shoe.id}>
+            <li className="shoeinfo">Shoe Name: {shoe.name}</li>
+            <li className="shoeinfo">Shoe size: {shoe.shoe_size}</li>
+            <li className="shoeinfo">Shoe usage: {shoe.usage} </li>
+            <div>
+              <Progress type="circle" percent={(shoe.usage * 100) / 400} />
+            </div>
+
+            <li className="shoeinfo">
+              {" "}
+              <a
+                href={shoe.order_link}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Order Shoe Here
+              </a>
+            </li>
             <br />
             <div>
-              <form onSubmit={this.handleSubmit}>
+              <form className="addshoeform" onSubmit={this.handleSubmit}>
                 <label>Update Usage</label>
                 <input
                   key={shoe.id}
@@ -78,8 +96,9 @@ class ShoeDetail extends Component {
       });
 
     return (
-      <div className="content">
-        <ul className="shoes">{shoedetails}</ul>
+      <div className="shoedeets">
+        <h2 className="shoetitle">Your shoe deets!</h2>
+        <ul className="shoespecs">{shoedetails}</ul>
         <Link to={"/welcome"}>
           <input type="button" value="Go Back" />
         </Link>{" "}

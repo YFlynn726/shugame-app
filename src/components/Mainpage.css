@@ -1,5 +1,28 @@
 .users {
   color: black;
   list-style: none;
-  font-size: 35px;
+  font-size: 28px;
+  text-align: center;
+}
+
+a:link {
+  text-decoration: none;
+  text-align: center;
+}
+
+.Mainpage {
+  margin: 0;
+  padding: 25px;
+}
+
+.list {
+  padding: 0px;
+}
+
+.para {
+  margin-top: 0px;
+}
+
+.Mainpage-title {
+  margin-bottom: 0px;
 }

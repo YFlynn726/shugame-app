@@ -22,9 +22,10 @@ class Mainpage extends Component {
     });
 
     return (
-      <div>
-        <h3>Welcome</h3>
-        <ul className="users">{userlist}</ul>
+      <div className="Mainpage">
+        <h2 className="Mainpage-title">Community Dashboard</h2>
+        <p className="para">Select your name to see your shoes.</p>
+        <ul className="list">{userlist}</ul>
       </div>
     );
   }

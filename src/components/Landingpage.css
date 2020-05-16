@@ -5,12 +5,12 @@
 
 .signup-form {
   position: relative;
-  width: 640px;
+  /* width: 640px; */
   margin: 0 auto;
   padding: 30px;
   padding-bottom: 30px;
   box-sizing: border-box;
-  background: lightpink;
+  /* background: lightpink; */
 }
 
 h1 {

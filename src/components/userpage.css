@@ -1,5 +1,36 @@
+.userinfo {
+  margin: 0;
+  padding: 25px;
+}
+
 .shoes {
   color: black;
   list-style: none;
-  font-size: 35px;
+  font-size: 20px;
+}
+
+.shoelist {
+  padding-left: 0px;
+}
+
+.wishlist {
+  color: black;
+  list-style: none;
+  font-size: 20px;
+}
+
+.wishes {
+  padding-left: 0px;
+}
+
+.userdir {
+  margin-top: 0px;
+}
+
+.usertitle {
+  margin-bottom: 0px;
+}
+
+.wishbutton {
+  margin-bottom: 20px;
 }
