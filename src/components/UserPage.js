@@ -84,6 +84,7 @@ class Userpage extends Component {
               href={wishlist.order_link}
               rel="noopener noreferrer"
               target="_blank"
+              className="orderlink"
             >
               Order Shoe Here
             </a>

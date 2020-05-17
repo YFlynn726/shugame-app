@@ -57,7 +57,15 @@ class ShoeDetail extends Component {
             <li className="shoeinfo">Shoe size: {shoe.shoe_size}</li>
             <li className="shoeinfo">Shoe usage: {shoe.usage} </li>
             <div>
-              <Progress type="circle" percent={(shoe.usage * 100) / 400} />
+              {/* <Progress type="circle" percent={(shoe.usage * 100) / 400} /> */}
+              <Progress
+                type="circle"
+                strokeColor={{
+                  "0%": "#108ee9",
+                  "100%": "#87d068",
+                }}
+                percent={(shoe.usage * 100) / 400}
+              />
             </div>
 
             <li className="shoeinfo">
@@ -66,6 +74,7 @@ class ShoeDetail extends Component {
                 href={shoe.order_link}
                 rel="noopener noreferrer"
                 target="_blank"
+                className="orderlink"
               >
                 Order Shoe Here
               </a>
@@ -73,8 +82,9 @@ class ShoeDetail extends Component {
             <br />
             <div>
               <form className="addshoeform" onSubmit={this.handleSubmit}>
-                <label>Update Usage</label>
+                <label>Update Usage: </label>
                 <input
+                  className="update_input"
                   key={shoe.id}
                   type="number"
                   name="usage"
@@ -84,7 +94,7 @@ class ShoeDetail extends Component {
                     this.handleUpdateUsageChange(event, shoe)
                   }
                 />
-                <input type="submit"></input>
+                <input className="usage_button" type="submit"></input>
               </form>
             </div>
 

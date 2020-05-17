@@ -158,7 +158,7 @@ class AddShoe extends Component {
               required
             />
           </div>
-          <input type="submit" value="Submit" />
+          <input className="button" type="submit" value="Submit" />
         </form>
         <p>
           *A good rule of thumb is to replace your running shoes every 300–400

@@ -66,7 +66,7 @@ class LandingPage extends Component {
     return (
       <div>
         <div className="Landing">
-          <h2>Welcome to the Shu-Game</h2>
+          <h2 className="landing-title">Welcome to the Shu-Game</h2>
           <h3>Improve Your Performance</h3>
           <br />
           <h3>Want to track your shoe usage?</h3>
@@ -122,7 +122,7 @@ class LandingPage extends Component {
               {validationError}
             </div>
 
-            <input type="submit" value="Submit" />
+            <input className="button" type="submit" value="Submit" />
           </form>
           <br></br>
         </div>

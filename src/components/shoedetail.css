@@ -1,14 +1,8 @@
 .shoeinfo {
-  color: black;
+  color: rgba(0, 0, 0, 0.85);
   list-style: none;
-  font-size: 20px;
+  font-size: 26px;
   padding: 0px;
-}
-
-.ant-progress-circle-wrap,
-.ant-progress-line-wrap {
-  margin-right: 8px;
-  margin-bottom: 5px;
 }
 
 .shoedeets {
@@ -24,4 +18,24 @@ a:link {
   text-decoration: none;
   text-align: center;
   color: black;
+}
+
+.orderlink {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.shoetitle {
+  font-weight: bolder;
+}
+
+.delete_button {
+  font-size: 16px;
+}
+
+.usage_button {
+  font-size: 16px;
+}
+
+.update_input {
+  font-size: 18px;
 }

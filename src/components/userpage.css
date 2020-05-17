@@ -1,12 +1,16 @@
+* {
+  font-family: "Open Sans", sans-serif;
+}
+
 .userinfo {
   margin: 0;
   padding: 25px;
 }
 
 .shoes {
-  color: black;
+  color: rgba(0, 0, 0, 0.85);
   list-style: none;
-  font-size: 20px;
+  font-size: 26px;
 }
 
 .shoelist {
@@ -14,7 +18,7 @@
 }
 
 .wishlist {
-  color: black;
+  color: rgba(0, 0, 0, 0.85);
   list-style: none;
   font-size: 20px;
 }
@@ -33,4 +37,8 @@
 
 .wishbutton {
   margin-bottom: 20px;
+}
+
+.orderlink {
+  color: rgba(0, 0, 0, 0.85);
 }

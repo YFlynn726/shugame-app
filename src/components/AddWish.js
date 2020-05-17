@@ -115,7 +115,7 @@ class AddWish extends Component {
               required
             />
           </div>
-          <input type="submit" value="Submit" />
+          <input className="button" type="submit" value="Submit" />
         </form>
       </div>
     );

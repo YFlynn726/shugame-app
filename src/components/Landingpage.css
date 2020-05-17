@@ -3,6 +3,11 @@
   padding: 25px;
 }
 
+.landing-title {
+  font-weight: bolder;
+  margin-bottom: 0px;
+}
+
 .signup-form {
   position: relative;
   /* width: 640px; */
@@ -15,4 +20,8 @@
 
 h1 {
   color: black;
+}
+
+.button {
+  border-radius: 4px;
 }

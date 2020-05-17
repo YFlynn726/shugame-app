@@ -1,13 +1,17 @@
 .users {
-  color: black;
+  color: rgba(0, 0, 0, 0.85);
   list-style: none;
-  font-size: 28px;
+  font-size: 26px;
   text-align: center;
 }
 
 a:link {
   text-decoration: none;
   text-align: center;
+}
+
+a:hover {
+  color: blue;
 }
 
 .Mainpage {
@@ -25,4 +29,5 @@ a:link {
 
 .Mainpage-title {
   margin-bottom: 0px;
+  font-weight: bolder;
 }
