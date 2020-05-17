@@ -6,7 +6,7 @@ import { Avatar } from "antd";
 function Nav() {
   return (
     <nav className="nav-container">
-      <Avatar src="../favicon.ico" />
+      <Avatar src="../favicon.ico" alt="stick figure image" />
 
       <Link to="/">
         <h2 className="logo">Shu-game</h2>
