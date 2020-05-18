@@ -25,7 +25,6 @@ class Userpage extends Component {
         return res.json();
       })
       .then((data) => {
-        //console.log("Request success: ", data);
         this.setState({
           currentUser: data,
         });
@@ -37,31 +36,11 @@ class Userpage extends Component {
 
   render() {
     const userId = this.props.match.params.user_id;
-    // const wishlistId = this.props.match.params.wishlist_id;
-    // console.log(wishlistId);
-    // fetch(`${config.API_ENDPOINT}api/users/${userId}`, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((res) => {
-    //     return res.json();
-    //   })
-    //   .then((data) => {
-    //     //console.log("Request success: ", data);
-    //     this.setState({
-    //       currentUser: data,
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log("Request failure: ", error);
-    //   });
 
     const filteredShoes = this.context.shoes.filter((shoe) => {
       // eslint-disable-next-line eqeqeq
       return shoe.user_id == userId;
     });
-    //console.log(filteredShoes);
     const shoes = filteredShoes.map((shoe) => {
       return (
         <Link key={shoe.id} to={`/shoes/${shoe.id}`}>
@@ -74,7 +53,6 @@ class Userpage extends Component {
       // eslint-disable-next-line eqeqeq
       return wishlist.user_id == userId;
     });
-    //console.log(filteredWish);
     const wishlist = filteredWish.map((wishlist) => {
       return (
         <div key={wishlist.id}>

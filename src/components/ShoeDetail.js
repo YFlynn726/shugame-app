@@ -57,7 +57,6 @@ class ShoeDetail extends Component {
             <li className="shoeinfo">Shoe size: {shoe.shoe_size}</li>
             <li className="shoeinfo">Shoe usage: {shoe.usage} </li>
             <div>
-              {/* <Progress type="circle" percent={(shoe.usage * 100) / 400} /> */}
               <Progress
                 type="circle"
                 strokeColor={{

@@ -28,12 +28,9 @@ class App extends Component {
   };
 
   updateUsage = (usage, shoe) => {
-    //console.log(usage);
-    console.log(shoe);
     const newUsage = {
       usage: parseInt(usage) + parseInt(shoe.usage),
     };
-    console.log(newUsage);
 
     fetch(`${config.API_ENDPOINT}api/shoes/${shoe.id}`, {
       method: "PATCH",
@@ -43,8 +40,6 @@ class App extends Component {
       body: JSON.stringify(newUsage),
     })
       .then((res) => {
-        console.log(res);
-
         return res.json();
       })
       .then((data) => {
@@ -132,7 +127,6 @@ class App extends Component {
         ]);
       })
       .then(([shoes, users, wishlist]) => {
-        //console.log(notes);
         this.setState({ shoes, users, wishlist });
       })
       .catch((error) => {
@@ -141,12 +135,10 @@ class App extends Component {
   }
 
   addUser = (first_name, last_name) => {
-    console.log(first_name, last_name);
     const newUser = {
       first_name: first_name,
       last_name: last_name,
     };
-    console.log(newUser);
 
     fetch(`${config.API_ENDPOINT}api/users`, {
       method: "POST",
@@ -168,15 +160,9 @@ class App extends Component {
       .catch((error) => {
         console.log("Request failure: ", error);
       });
-
-    // console.log(newUser);
-
-    // console.log(this.state.users);
-    // console.log(this.state.shoes);
   };
 
   addShoe = (shoe, shoe_size, usage, order_link, user_id) => {
-    //console.log(shoe);
     const newShoe = {
       name: shoe,
       shoe_size: shoe_size,
@@ -208,20 +194,15 @@ class App extends Component {
       .catch((error) => {
         console.log("Request failure: ", error);
       });
-
-    console.log(newShoe);
-    console.log(this.state.shoes);
   };
 
   addWish = (shoe_name, order_link, user_id) => {
     console.log(shoe_name, order_link, user_id);
     const newWishlistItem = {
       name: shoe_name,
-      //shoe_size: shoe_size,
       order_link: order_link,
       user_id,
     };
-    console.log(newWishlistItem);
 
     fetch(`${config.API_ENDPOINT}api/wishlist`, {
       method: "POST",
@@ -245,9 +226,6 @@ class App extends Component {
       .catch((error) => {
         console.log("Request failure: ", error);
       });
-
-    console.log(newWishlistItem);
-    console.log(this.state.wishlist);
   };
 
   render() {

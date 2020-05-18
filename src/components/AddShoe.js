@@ -48,8 +48,6 @@ class AddShoe extends Component {
   };
 
   handleSubmit = (event) => {
-    //const newShoe = this.state;
-    //console.log(newShoe);
     event.preventDefault();
     const isValid = this.validateName();
     if (!isValid.error) {

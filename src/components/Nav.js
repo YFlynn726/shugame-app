@@ -15,9 +15,6 @@ function Nav() {
         <Link to="/welcome">
           <li className="dash">Community Dashboard</li>
         </Link>
-        {/* <Link to="/AddShoe">
-          <li>Add a Shoe</li>
-        </Link> */}
       </ul>
     </nav>
   );
