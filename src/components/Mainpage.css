@@ -4,6 +4,9 @@
   font-size: 26px;
   text-align: center;
 }
+.users:hover {
+  color: mediumturquoise;
+}
 
 a:link {
   text-decoration: none;
@@ -11,7 +14,7 @@ a:link {
 }
 
 a:hover {
-  color: blue;
+  color: mediumturquoise;
 }
 
 .Mainpage {

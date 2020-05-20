@@ -17,6 +17,10 @@
   padding-left: 0px;
 }
 
+.shoes:hover {
+  color: mediumturquoise;
+}
+
 .wishlist {
   color: rgba(0, 0, 0, 0.85);
   list-style: none;

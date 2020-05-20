@@ -63,7 +63,7 @@ class ShoeDetail extends Component {
                   "0%": "#108ee9",
                   "100%": "#87d068",
                 }}
-                percent={(shoe.usage * 100) / 400}
+                percent={Math.floor((shoe.usage * 100) / 400)}
               />
             </div>
 
@@ -81,7 +81,7 @@ class ShoeDetail extends Component {
             <br />
             <div>
               <form className="addshoeform" onSubmit={this.handleSubmit}>
-                <label>Update Usage: </label>
+                <label className="update">Update Usage: </label>
                 <input
                   className="update_input"
                   key={shoe.id}

@@ -2,3 +2,80 @@
   margin: 0;
   padding: 25px;
 }
+
+.shoeForm {
+  border-radius: 30px;
+  /* background-color: pink; */
+  padding: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.shoebutton {
+  margin-top: 6px;
+  border-radius: 30px;
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+
+  input[type="text"],
+  input[type="number"],
+  input[type="url"],
+  select {
+    display: inline-block;
+    padding: 6px;
+  }
+
+  label {
+    display: inline-block;
+    clear: left;
+    width: 150px;
+    text-align: right;
+  }
+
+  .selectoption {
+    display: inline-block;
+    clear: left;
+    width: 250px;
+    text-align: right;
+  }
+
+  input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+
+  .shoeForm {
+    /* border-radius: 30px;
+    background-color: lightgreen;
+    padding: 20px; */
+  }
+
+  .addshoeform {
+    margin: 0;
+    padding: 45px;
+  }
+}
+/* input {
+  border-radius: 4px;
+  align-items: center;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+select {
+  border-radius: 4px;
+} */

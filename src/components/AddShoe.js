@@ -99,15 +99,16 @@ class AddShoe extends Component {
       <div className="addshoeform">
         <h2>Add your shoe</h2>
         <p>Please select your name to add shoe to your list</p>
-        <form className="addShoeForm" onSubmit={this.handleSubmit}>
-          <label>
-            Select Your Name:
-            <select onChange={this.handleUserChange}>{options}</select>
-          </label>
-
+        <form className="shoeForm" onSubmit={this.handleSubmit}>
+          <div>
+            <label className="selectoption">
+              Select Your Name:
+              <select onChange={this.handleUserChange}>{options}</select>
+            </label>
+          </div>
           <br />
           <div>
-            <label>Shoe Name:</label>
+            <label>Shoe Name: </label>
             <input
               type="text"
               id="shoename"
@@ -120,19 +121,20 @@ class AddShoe extends Component {
             {validationError}
           </div>
           <div>
-            <label>Shoe Size:</label>
+            <label>Shoe Size: </label>
             <input
-              type="text"
+              type="number"
               id="shoesize"
               name="shoesize"
               value={this.state.shoe_size}
               onChange={this.handlesSizeChange}
               placeholder="7"
+              min="0"
               required
             />
           </div>
           <div>
-            <label>Shoe Miles:</label>
+            <label>Shoe Miles: </label>
             <input
               type="number"
               id="shoemiles"
@@ -140,11 +142,12 @@ class AddShoe extends Component {
               value={this.state.usage}
               onChange={this.handleUsageChange}
               placeholder="45"
+              min="0"
               required
             />
           </div>
           <div>
-            <label>Order Link:</label>
+            <label>Order Link: </label>
             <input
               type="url"
               pattern="https://.*"
@@ -156,7 +159,7 @@ class AddShoe extends Component {
               required
             />
           </div>
-          <input className="button" type="submit" value="Submit" />
+          <input className="shoebutton" type="submit" value="Submit" />
         </form>
         <p>
           *A good rule of thumb is to replace your running shoes every 300–400
